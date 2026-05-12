@@ -1,0 +1,166 @@
+# ==========================================
+# Analysis and Visualization of Stock Market Data
+# Dataset: Stock_Prices.csv
+# ==========================================
+
+# -------------------------
+# 1. Import Required Libraries
+# -------------------------
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from statsmodels.tsa.seasonal import seasonal_decompose
+from statsmodels.tsa.arima.model import ARIMA
+from sklearn.metrics import mean_squared_error
+
+# -------------------------
+# 2. Load Dataset
+# -------------------------
+df = pd.read_csv("./stock prices.csv")
+
+# -------------------------
+# 3. Explore Dataset
+# -------------------------
+print("\n--- First 5 Rows ---")
+print(df.head())
+
+print("\n--- Dataset Info ---")
+print(df.info())
+
+print("\n--- Missing Values ---")
+print(df.isnull().sum())
+
+print("\n--- Statistical Summary ---")
+print(df.describe())
+
+# -------------------------
+# 4. Convert Date Column
+# -------------------------
+# Convert Date column into datetime format
+df["date"] = pd.to_datetime(df["date"])
+
+# Sort data by date
+df = df.sort_values("date")
+
+# Set Date as index
+df.set_index("date", inplace=True)
+
+print("\n--- Updated Dataset ---")
+print(df.head())
+
+# -------------------------
+# 5. Line Chart - Closing Price Trend
+# -------------------------
+plt.figure(figsize=(12,6))
+plt.plot(df.index, df["close"], color='blue')
+plt.title("Stock Closing Price Over Time")
+plt.xlabel("Date")
+plt.ylabel("Closing Price")
+plt.grid(True)
+plt.show()
+
+# -------------------------
+# 6. Volume Traded Visualization
+# -------------------------
+plt.figure(figsize=(12,5))
+plt.bar(df.index, df["volume"])
+plt.title("Trading Volume Over Time")
+plt.xlabel("Date")
+plt.ylabel("Volume")
+plt.show()
+
+# -------------------------
+# 7. Moving Averages
+# -------------------------
+# 7-Day Moving Average
+df["MA_7"] = df["close"].rolling(window=7).mean()
+
+# 30-Day Moving Average
+df["MA_30"] = df["close"].rolling(window=30).mean()
+
+plt.figure(figsize=(12,6))
+plt.plot(df["close"], label="Closing Price")
+plt.plot(df["MA_7"], label="7-Day Moving Average")
+plt.plot(df["MA_30"], label="30-Day Moving Average")
+
+plt.title("Stock Price with Moving Averages")
+plt.xlabel("Date")
+plt.ylabel("Price")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# -------------------------
+# 8. Correlation Analysis
+# -------------------------
+plt.figure(figsize=(8,6))
+
+# Select numeric columns only
+numeric_df = df.select_dtypes(include=[np.number])
+
+sns.heatmap(numeric_df.corr(), annot=True, cmap="coolwarm")
+
+plt.title("Correlation Heatmap")
+plt.show()
+
+# -------------------------
+# 9. Seasonality Analysis
+# -------------------------
+# Decompose the time series
+decomposition = seasonal_decompose(df["close"], model='additive', period=30)
+
+# Plot decomposition
+decomposition.plot()
+plt.show()
+
+# -------------------------
+# 10. ARIMA Forecasting
+# -------------------------
+
+# Split data into train and test
+train_size = int(len(df) * 0.8)
+
+train = df["close"][:train_size]
+test = df["close"][train_size:]
+
+# Build ARIMA Model
+model = ARIMA(train, order=(5,1,0))
+model_fit = model.fit()
+
+# Forecast
+forecast = model_fit.forecast(steps=len(test))
+
+# -------------------------
+# 11. Evaluate Model
+# -------------------------
+mse = mean_squared_error(test, forecast)
+
+print("\nMean Squared Error:", mse)
+
+# -------------------------
+# 12. Plot Forecast
+# -------------------------
+plt.figure(figsize=(12,6))
+
+plt.plot(train.index, train, label="Training Data")
+plt.plot(test.index, test, label="Actual Prices")
+plt.plot(test.index, forecast, label="Forecasted Prices")
+
+plt.title("ARIMA Stock Price Forecast")
+plt.xlabel("Date")
+plt.ylabel("Stock Price")
+plt.legend()
+plt.grid(True)
+
+plt.show()
+
+# -------------------------
+# 13. Export Processed Dataset
+# -------------------------
+df.to_csv("Output/Processed_Stock_Prices.csv")
+
+print("\n✅ Processed dataset saved successfully!")
+
+input("\nPress Enter to exit...")
