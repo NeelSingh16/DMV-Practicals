@@ -7,8 +7,8 @@ import seaborn as sns
 # 1. Load Data
 # -------------------------
 # Load sales data from CSV, Excel, and JSON
-csv_data = pd.read_csv("./datasets/sales_data_sample 2.csv", encoding="cp1252")
-excel_data = pd.read_excel("./datasets/sales_data_sample 2.xlsx")
+csv_data = pd.read_csv("./datasets/sales_data_sample_2.csv", encoding="cp1252")
+excel_data = pd.read_excel("./datasets/sales_data_sample_2.xlsx")
 json_data = pd.read_json("./datasets/sales_data_sample_2.json", lines=True)
 
 print("CSV Data Sample:\n", csv_data.head())
