@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 # -------------------------
 # 1. Import Dataset
 # -------------------------
-df = pd.read_csv("./datasets/City_Air_Quality.csv")
+df = pd.read_csv("./City_Air_Quality.csv")
 
 # -------------------------
 # 2. Explore Dataset
