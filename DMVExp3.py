@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 # -------------------------
 # 1. Import Dataset
 # -------------------------
-df = pd.read_csv("datasets/customer_churn_data.csv")
+df = pd.read_csv("customer_churn_data.csv")
 
 # -------------------------
 # 2. Explore Dataset
@@ -114,7 +114,7 @@ if "Churn" in df.columns:
 # -------------------------
 # 11. Export Cleaned Data
 # -------------------------
-df.to_csv("./Output/Cleaned_Telecom_Customer_Churn.csv", index=False)
+df.to_csv("./Cleaned_Telecom_Customer_Churn.csv", index=False)
 print("\n✅ Cleaned dataset saved as 'Cleaned_Telecom_Customer_Churn.csv'")
 
 input("Press Enter to exit and close all plots...")
