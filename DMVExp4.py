@@ -6,7 +6,7 @@ from sklearn.preprocessing import LabelEncoder
 # -------------------------
 # 1. Import Dataset & Clean Column Names
 # -------------------------
-df = pd.read_csv("./datasets/RealEstate_Prices.csv")
+df = pd.read_csv("./RealEstate_Prices.csv")
 
 # Clean column names (remove spaces, lowercase, replace special chars with _)
 df.columns = df.columns.str.strip().str.lower().str.replace("[^a-z0-9]", "_", regex=True)
@@ -88,5 +88,5 @@ if "sale_price" in df.columns:
 print("\n✅ Data Wrangling Complete. Final Shape:", df.shape)
 
 # Export cleaned dataset
-df.to_csv("./Output/Cleaned_RealEstate_Prices.csv", index=False)
+df.to_csv("./Cleaned_RealEstate_Prices.csv", index=False)
 print("\nCleaned dataset saved as 'Cleaned_RealEstate_Prices.csv'")
