@@ -6,7 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # 1. Import dataset
-df = pd.read_csv("./datasets/sales_data_sample 2.csv", encoding="cp1252")
+df = pd.read_csv("./sales_data_sample_2.csv", encoding="cp1252")
 
 # 2. Explore dataset
 print("First 5 rows:\n", df.head())
@@ -16,7 +16,7 @@ print("\nSummary Statistics:\n", df.describe())
 
 # 3. Identify relevant variables
 # Use TERRITORY as Region, SALES as SalesAmount, PRODUCTLINE as Product Category
-region_col = "TERRITORY"
+region_col = "COUNTRY"
 sales_col = "SALES"
 category_col = "PRODUCTLINE"
 
