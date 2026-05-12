@@ -9,7 +9,7 @@ from pprint import pprint
 # -------------------------
 # 1. Setup API
 # -------------------------
-API_KEY = "952af229bd05bc35c6d7d1c0402bc901"  # Replace with your OpenWeatherMap API key
+API_KEY = "Insert API Key here"  # Replace with your OpenWeatherMap API key
 CITY = "Mumbai,IN"  # Example: Mumbai, India
 URL = f"http://api.openweathermap.org/data/2.5/forecast?q={CITY}&appid={API_KEY}&units=metric"
 
@@ -106,3 +106,5 @@ sns.heatmap(df[["Temperature", "Humidity", "WindSpeed", "Precipitation"]].corr()
             annot=True, cmap="YlGnBu")
 plt.title("Correlation between Weather Attributes")
 plt.show()
+
+# 952af229bd05bc35c6d7d1c0402bc901
