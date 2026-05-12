@@ -4,15 +4,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import datetime
 from pprint import pprint
-import os
-from dotenv import load_dotenv
 
-load_dotenv()
 
 # -------------------------
 # 1. Setup API
 # -------------------------
-API_KEY = os.getenv("MY_API_KEY")  # Replace with your OpenWeatherMap API key
+API_KEY = "952af229bd05bc35c6d7d1c0402bc901"  # Replace with your OpenWeatherMap API key
 CITY = "Mumbai,IN"  # Example: Mumbai, India
 URL = f"http://api.openweathermap.org/data/2.5/forecast?q={CITY}&appid={API_KEY}&units=metric"
 
@@ -33,7 +30,7 @@ else:
 # -------------------------
 weather_list = []
 
-for entry in data["list"]:
+for entry in data.get("list"):
     dt = datetime.datetime.fromtimestamp(entry["dt"])
     temp = entry["main"]["temp"]
     humidity = entry["main"]["humidity"]
